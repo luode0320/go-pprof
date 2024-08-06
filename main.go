@@ -15,10 +15,10 @@ func main() {
 	log.SetFlags(log.Lshortfile | log.LstdFlags)
 	log.SetOutput(os.Stdout)
 
-	runtime.GOMAXPROCS(1)
-	runtime.SetMutexProfileFraction(1)
-	runtime.SetBlockProfileRate(1)
+	runtime.SetMutexProfileFraction(1) // 开启锁跟踪
+	runtime.SetBlockProfileRate(1)     // 开启阻塞跟踪
 
+	// 通过web采集: http://localhost:6060/debug/pprof/
 	go func() {
 		if err := http.ListenAndServe(":6060", nil); err != nil {
 			log.Fatal(err)
